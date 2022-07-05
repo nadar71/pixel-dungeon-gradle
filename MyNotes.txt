@@ -1,0 +1,176 @@
+
+
+GENERAL
+
+- 2 modules included in settings.gradle : include ':core', ':PD-classes'
+  the parent module as the project build.gradle  with this ext var:
+  
+  buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.2'
+    }
+  }
+
+  allprojects {
+
+	    ext {
+	        appName = 'Pixel Dungeon'
+	        appPackageName = 'com.watabou.pixeldungeon'
+
+	        appVersionCode = 74
+	        appVersionName = '1.9.1'
+
+	        appAndroidCompileSDK = 30
+	        appAndroidMinSDK = 8
+	        appAndroidTargetSDK = 30
+	    }
+	    version = appVersionName
+
+	    repositories {
+	        google()
+	        mavenCentral()
+	    }
+
+  }
+
+
+
+  :core  : build.gradle includes module appName:appName
+
+  apply plugin: 'com.android.application'
+
+	android {
+	    compileSdkVersion appAndroidCompileSDK
+
+	    defaultConfig {
+	        manifestPlaceholders = [appName:appName]
+	        applicationId appPackageName
+
+	        versionCode appVersionCode
+	        versionName appVersionName
+
+	        //noinspection MinSdkTooLow
+	        minSdkVersion appAndroidMinSDK
+	        targetSdkVersion appAndroidTargetSDK
+	    }
+
+	}
+
+	dependencies {
+	    implementation project(':PD-classes')
+	}
+
+
+
+  :PD-classes : build.gradle
+
+  apply plugin: 'com.android.library'
+
+	android {
+	    compileSdkVersion appAndroidCompileSDK
+
+	    defaultConfig {
+	        //noinspection MinSdkTooLow
+	        minSdkVersion appAndroidMinSDK
+	    }
+	}
+
+
+ 
+
+- launching activities : .PixelDungeon, set in manifest inside that module
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+								:PD-classes
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Manifest :
+<uses-permission android:name="android.permission.VIBRATE"/>
+
+<uses-feature android:glEsVersion="0x00020000"/>								
+
+
+TREE
+
+├── glscripts
+│   └── Script.java : 
+├── gltextures
+│   ├── Atlas.java
+│   ├── Gradient.java
+│   ├── SmartTexture.java
+│   └── TextureCache.java
+├── glwrap
+│   ├── Attribute.java
+│   ├── Framebuffer.java
+│   ├── Matrix.java
+│   ├── Program.java
+│   ├── Quad.java
+│   ├── Renderbuffer.java
+│   ├── Shader.java
+│   ├── Texture.java
+│   └── Uniform.java
+├── input
+│   ├── Keys.java
+│   └── Touchscreen.java
+├── noosa
+│   ├── BitmapText.java
+│   ├── BitmapTextMultiline.java
+│   ├── Camera.java
+│   ├── ColorBlock.java
+│   ├── Game.java
+│   ├── Gizmo.java
+│   ├── Group.java
+│   ├── Image.java
+│   ├── MovieClip.java
+│   ├── NinePatch.java
+│   ├── NoosaScript.java
+│   ├── PseudoPixel.java
+│   ├── RenderedText.java
+│   ├── Resizable.java
+│   ├── Scene.java
+│   ├── SkinnedBlock.java
+│   ├── TextureFilm.java
+│   ├── Tilemap.java
+│   ├── TouchArea.java
+│   ├── Visual.java
+│   ├── audio
+│   │   ├── Music.java
+│   │   └── Sample.java
+│   ├── particles
+│   │   ├── BitmaskEmitter.java
+│   │   ├── Emitter.java
+│   │   └── PixelParticle.java
+│   ├── tweeners
+│   │   ├── AlphaTweener.java
+│   │   ├── CameraScrollTweener.java
+│   │   ├── Delayer.java
+│   │   ├── PosTweener.java
+│   │   ├── ScaleTweener.java
+│   │   └── Tweener.java
+│   └── ui
+│       ├── Button.java
+│       ├── CheckBox.java
+│       └── Component.java
+└── utils
+    ├── BitmapCache.java
+    ├── BitmapFilm.java
+    ├── Bundlable.java
+    ├── Bundle.java
+    ├── Callback.java
+    ├── ColorMath.java
+    ├── GameMath.java
+    ├── Graph.java
+    ├── Highlighter.java
+    ├── PathFinder.java
+    ├── Point.java
+    ├── PointF.java
+    ├── Random.java
+    ├── Rect.java
+    ├── Signal.java
+    ├── SparseArray.java
+    └── SystemTime.java
